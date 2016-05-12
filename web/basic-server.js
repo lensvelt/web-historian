@@ -3,6 +3,7 @@ var handler = require('./request-handler');
 var initialize = require('./initialize.js');
 var urlParser = require('url');
 var arcHelp = require('../helpers/archive-helpers');
+var httpHelp = require('./http-helpers');
 
 // Why do you think we have this here?
 // HINT: It has to do with what's in .gitignore
@@ -14,15 +15,15 @@ var ip = '127.0.0.1';
 
 
 var server = http.createServer(function(req, res) {
-
   if (req.url === '/' && req.method === 'GET') {
-
+    var asset = arcHelp.paths.siteAssets + '/index.html';
+    httpHelp.serveAssets(res, asset);
   }
 
   
 // var route = router[urlParser.parse(req.url).pathname];
   
-  handler.handleRequest(req, res);
+  // handler.handleRequest(req, res);
   // if (route) {
   //   route(req, res);
   // } else {
