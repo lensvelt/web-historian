@@ -38,24 +38,24 @@ exports.readListOfUrls = function(callback) { // return array
 };
 
 exports.isUrlInList = function(target, callback) {
+  // TODO: May need to change how callback is used 
+  // list.indexOf(target) !== -1;
   callback(target);
 };
 
 exports.addUrlToList = function(siteUrl, callback) {
-  // fs.appendFile(paths.list, '\n' + siteUrl);
-  callback(siteUrl);
+  fs.appendFile(exports.paths.list, siteUrl + '\n', callback);
 };
 
 exports.isUrlArchived = function(siteUrl, callback) {
-  // return fs.exists(paths.archivedSites + '/' + siteUrl);
-  callback(siteUrl);
+  fs.access(exports.paths.archivedSites + '/' + siteUrl, fs.F_OK, callback);
 };
 
 exports.downloadUrls = function(urlArray) {
   urlArray.forEach(function(url) {
 
     fs.mkdir(exports.paths.archivedSites + '/' + url, function(err) {
-      console.log(err);
+      // console.log(err);
     });
 
     // TODO: use GET request to download site content
