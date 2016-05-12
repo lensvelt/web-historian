@@ -18,6 +18,8 @@ var server = http.createServer(function(req, res) {
   if (req.url === '/' && req.method === 'GET') {
     var asset = arcHelp.paths.siteAssets + '/index.html';
     httpHelp.serveAssets(res, asset);
+  } else {
+    httpHelp.serveAssets(res, 'File Not Found');
   }
 
   

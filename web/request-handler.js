@@ -20,16 +20,21 @@ exports.actions = {
   }
 };
 
-exports.sendResponse = function(response, data, status) { // data is html content
-  status = status || 200;
-  // write to head
-  response.writeHead(status, httpHelpers.headers);
-  // serialize data
-  response.end(JSON.stringify(data));
-};
 
-exports.collectData = function() {
 
+exports.collectData = function(req, res) {
+  var data = '';
+  req.on('data', function(chunk) { // data received in streams
+    data += chunk;
+  });
+  req.on('end', function() {
+    // momentarily skipping tests
+    // append url to list
+    archive.addUrlToList(data, function(data) {
+      console.log(data);
+    }); 
+    exports.sendResponse(res, data, 302);
+  });
 };
 
 exports.handleRequest = function (req, res) {
