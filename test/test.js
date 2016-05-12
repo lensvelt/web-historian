@@ -83,6 +83,8 @@ describe('archive helpers', function() {
       fs.writeFileSync(archive.paths.list, urlArray.join('\n'));
 
       archive.readListOfUrls(function(urls) {
+        console.log(urls);
+        console.log(urlArray);
         expect(urls).to.deep.equal(urlArray);
         done();
       });
