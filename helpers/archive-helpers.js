@@ -52,5 +52,13 @@ exports.isUrlArchived = function(siteUrl, callback) {
 };
 
 exports.downloadUrls = function(urlArray) {
+  urlArray.forEach(function(url) {
+
+    fs.mkdir(exports.paths.archivedSites + '/' + url, function(err) {
+      console.log(err);
+    });
+
+    // TODO: use GET request to download site content
+  });
 
 };
